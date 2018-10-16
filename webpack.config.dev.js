@@ -1,9 +1,7 @@
-const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const SRC_DIR = path.resolve('src');
-const DIST_DIR = path.resolve('dist');
+const { MODULE, SRC_DIR, DIST_DIR } = require('./webpack.constants');
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -44,34 +42,5 @@ module.exports = {
       },
     }),
   ],
-  module: {
-    rules: [
-      {
-        test: /\.jsx?/,
-        exclude: /node_modules/,
-        include: [SRC_DIR],
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                '@babel/preset-react',
-                '@babel/preset-env',
-                ['@babel/preset-stage-0', { decoratorsLegacy: true }],
-              ],
-              plugins: ['react-hot-loader/babel'],
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: ['file-loader'],
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-    ],
-  },
+  module: MODULE,
 };
